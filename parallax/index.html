@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Parallax</title>
+<link rel="stylesheet" href="../common/css/html5reset.css">
+<link rel="stylesheet" href="../common/css/style.css">
+<script type="text/javascript" src="../common/js/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+	var yzahyo = $('#item1').offset().top;
+	var xzahyo1 = $('#item1').offset().left;
+	var xzahyo2 = $('#item2').offset().left;
+	var xzahyo3 = $('#item3').offset().left;
+	var xzahyo4 = $('#item4').offset().left;
+	var xzahyo5 = $('#item5').offset().left;
+
+	$(window).scroll(function()	{
+		var scrollValue = $(this).scrollTop();
+		$('#textbox').text(scrollValue);//test用
+
+		$('#item1').css({'top': yzahyo + scrollValue / 4});
+		$('#item2').css({'top': yzahyo + scrollValue / 5, 'left': xzahyo2 + scrollValue / 8});
+		$('#item3').css({'top': yzahyo + scrollValue / 6, 'left': xzahyo3 + scrollValue / 6});
+		$('#item4').css({'top': yzahyo + scrollValue / 8, 'left' : xzahyo4 + scrollValue / 5});
+		$('#item5').css({'left': xzahyo5 + scrollValue / 4});
+	});
+
+});
+</script>
+<style>
+body {
+	height: 3000px;
+}
+#textbox {
+	position: fixed;
+	top:0;
+	right: 0;
+	padding: 10px;
+	background:#EEE;
+}
+#next {
+	position: fixed;
+	top: 100px;
+	right: 20px;
+}
+/*---------------*/
+li {
+	position: fixed;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	color:#FFF;
+}
+#item1 {left:20px; background-color: purple;}
+#item2 {left:80px; background-color: orange;}
+#item3 {left:140px; background-color: red;}
+#item4 {left:200px; background-color: pink;}
+#item5 {left:260px; background-color: green;}
+</style>
+</head>
+<body>
+<span id="textbox"></span>
+<div id="next"><a href="index2.php">&gt;背景が動くサンプルへ</a></div>
+
+<ul>
+	<li id="item1"></li>
+	<li id="item2"></li>
+	<li id="item3"></li>
+	<li id="item4"></li>
+	<li id="item5"></li>
+</ul>
+
+</body>
+</html>

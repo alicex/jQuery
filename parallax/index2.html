@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Parallax 背景が動くサンプル</title>
+<link rel="stylesheet" href="../common/css/html5reset.css">
+<link rel="stylesheet" href="../common/css/style.css">
+<script type="text/javascript" src="../common/js/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+	var area2y = $('#area2').offset().top;
+	var area3y = $('#area3').offset().top;
+	var areaAshy = $('#ashColorArea').offset().top;
+	$('#area2 span').text(area2y);//test用
+	$('#area3 span').text(area3y);//test用
+	$('#ashColorArea span').text(areaAshy);//test用
+
+	$(window).scroll(function()	{
+		var scrollValue = $(this).scrollTop();
+		$('#textbox').text(scrollValue);//test用
+
+		var imgpos = '0 ';
+
+		//area1
+		//トップまで来たら背景はトップに固定されたように見せる
+		$('#area1').css('background-position', imgpos + scrollValue + 'px');
+		//area2
+		//area1と同じ、背景はトップに固定されたように見せる
+		if (scrollValue > area2y){
+			$('#area2').css('background-position', imgpos + (scrollValue - area2y) + 'px');
+		}else{
+			$('#area2').css('background-position', imgpos + '0');
+		}
+		//area3
+		//トップまで来たら背景が下がっていくように見せる
+		if (scrollValue > area3y){
+			$('#area3').css('background-position', imgpos + ((scrollValue - area3y)*2) + 'px');
+		}else{
+			$('#area3').css('background-position', imgpos + '0');
+		}
+		//area4
+		//トップまで上がらず途中固定で赤エリアが過ぎ去るように見せる
+		if (scrollValue > areaAshy){
+			var area4y = scrollValue - areaAshy - 800;
+			$('#area4').css('background-position', imgpos + area4y + 'px');
+		}else{
+			$('#area4').css('background-position', imgpos + -200 + 'px');
+		}
+	
+	});
+});
+</script>
+<style>
+#textbox {
+	position: fixed;
+	top:0;
+	right: 0;
+	padding: 10px;
+	background:#EEE;
+}
+/*---------------*/
+.area {
+	position: relative;
+	height: 1000px;
+}
+.area p {
+	position:absolute;
+	top: 200px;
+	left: 0;
+	padding: 50px 0;
+	width: 600px;
+	background:#000;
+	opacity: 0.7;
+	text-align: center;
+	color: #FFF;
+	font-size: 36px;
+	font-weight: bold;
+	border:solid 1px #333;
+	box-shadow: 3px 3px 5px 1px #000;
+}
+#area1 {background:url(images/candle.jpg) repeat-x;}
+#area2 {background:url(images/fish.jpg) repeat-x;}
+#area3 {background:url(images/poppy.jpg) repeat-x;}
+#area4 {background:url(images/rose.jpg) repeat-x;}
+#ashColorArea {background: #666;}
+#redColorArea {background: #900;}
+</style>
+</head>
+<body>
+<span id="textbox"></span>
+
+<div id="area1" class="area">
+	<p>AREA1</p>
+</div>
+<div id="area2" class="area">
+	<p>AREA2 : <span></span>px</p>
+</div>
+<div id="area3" class="area">
+	<p>AREA3 : <span></span>px</p>
+</div>
+<div id="ashColorArea" class="area">
+	<p>ashColorArea : <span></span>px</p>
+</div>
+<div id="area4" class="area">
+	<p>AREA4</p>
+</div>
+<div id="redColorArea" class="area">
+	<p>redColorArea</p>
+</div>
+
+</body>
+</html>
