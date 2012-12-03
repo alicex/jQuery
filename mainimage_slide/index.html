@@ -16,7 +16,7 @@ $(function() {
 
 $.fn.imageslide = function(opts) {
 	opts = $.extend({
-		imagewide: 800,
+		imagewide: $(this).width(),//image width
 		second: 5000,	//second
 		speed: 1200		//animation speed
 	}, opts);
