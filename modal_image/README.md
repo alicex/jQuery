@@ -13,3 +13,21 @@ jQuery モーダルウィンドウの画像用のプラグインです。
 * speed:300,				//ふわっと出るスピード
 * backColor:'#000',	//後ろのレイヤーの色
 * backAlpha:0.6			//後ろのレイヤーの透明度
+
+##レイアウト概要
+#modalWindow
+  |
+  + #modalCont
+      |
+      + #mw-cont
+          |
+          + img
+          + #mw-caption
+          
+      + #mw-close
+      
+      + #mw-control
+          |
+          + a#prev
+          + a#next
+      
