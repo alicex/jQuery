@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ModalWindow - image</title>
+<link rel="stylesheet" href="../common/css/html5reset.css">
+<link rel="stylesheet" href="../common/css/style.css">
+<script type="text/javascript" src="../common/js/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('.gallery a').imageModal({
+		backColor:'#08f'
+	});
+});
+
+$.fn.imageModal = function(opts) {
+	// * options
+	//-----------------------------------------
+	opts = $.extend({
+		innerWidth:600,		//image width
+		innerHeight:400,  //image height
+		outerWidth:0,			//modalContにCSSで幅指定がある時
+		outerHeight:0,		//modalContにCSSで高さ指定がある時
+		speed:300,				//animation speed
+		backColor:'#000',	//back color
+		backAlpha:0.6			// back alpha
+	},opts);
+
+	// * initialize
+	//-----------------------------------------
+	$('body').append('<div id="backWrap"></div>');
+	$('body').append('<div id="modalWindow"><div id="modalCont"><div id="mw-close"><a href="#">CLOSE</a></div><div id="mw-control"><a href="#" id="mw-prev">prev</a><a href="#" id="mw-next">next</a></div></div></div>');
+	//selector
+	var $back    = $('#backWrap');
+	var $mwindow = $('#modalWindow');
+	var $mcont   = $('#modalCont');
+	var $close   = $('#mw-close');
+	var $closeArea = $('#backWrap, #mw-close');
+	var $control = $('#mw-control');
+	var $next    = $('#mw-next');
+	var $prev    = $('#mw-prev'); 
+	var $mLink   = $(this);
+	//other
+	var imagesrc;
+	var imgArraySrc = [];
+	var imgArrayAlt = [];
+	var num;
+	//inner&outer
+	var iwi = opts.innerWidth;
+	var ihi = opts.innerHeight;
+	if (opts.outerWidth == 0) {
+		var owi = $mwindow.width() + iwi;
+	}else{
+		var owi = opts.outerWidth;
+	}
+	if (opts.outerHeight == 0) {
+		var ohi = $mwindow.height() + ihi;
+	}else{
+		var ohi = opts.outerHeight;
+	}
+	//control
+	$control.css({top:ihi / 2, width:iwi});
+	//speed
+	var sp  = opts.speed;
+	var sp2 = sp - (sp / 2);
+	//backLayout
+	$back.css({
+		backgroundColor: opts.backColor,
+		opacity: opts.backAlpha
+	});
+
+	// * grouping
+	//-----------------------------------------
+	$mLink.each(function() {
+		if ($(this).attr('rel') == 'mImage') {
+			imgArraySrc.push($(this).attr('href'));
+			imgArrayAlt.push($('img',this).attr('alt'));
+		}
+	});
+
+	// * thumbnail click
+	//-----------------------------------------
+	$mLink.on('click',function() {
+		//control show
+		if ($(this).attr('rel') == 'mImage') {
+			$control.show();
+		}else{
+			$control.hide();
+		}
+		//image & alttext
+		imagesrc = $(this).attr('href');
+		var image = $('<img>').attr('src',imagesrc);
+		var altTxt = $('img',this).attr('alt');
+		$mcont.prepend('<div id="mw-cont"><div id="mw-caption"></div></div>');
+		$('#mw-cont').css({width:iwi,height:ihi}).prepend(image);
+		$('#mw-caption').html(altTxt);
+		//modalWindow position
+		if ($(window).height() <= ohi) {
+			var pTop = 10;
+		}else{
+			var pTop = ($(window).height() / 2) - (ohi / 2);
+		}
+		if ($(window).width() <= owi) {
+			var pLeft = 10;
+		}else{
+			var pLeft = ($(window).width() / 2) - (owi / 2);
+		}
+		//back layout show
+		$back.fadeIn(sp);
+		//modalWindow show
+		$mwindow.css({top:pTop, left:pLeft}).fadeIn(sp2);
+		return false;
+	});
+
+	// * closeArea click
+	//-----------------------------------------
+	$closeArea.on('click',function() {
+		$back.fadeOut(sp);
+		$mwindow.fadeOut(sp2,function() {
+			$('#mw-cont').remove();
+		});
+		return false;
+	});
+
+	// * next click
+	//-----------------------------------------
+	$next.on('click',function() {		
+		for (var i = 0; i < imgArraySrc.length; i++) {
+			if (imgArraySrc[i] == imagesrc) {
+				if (i != imgArraySrc.length - 1) {		
+					num = i + 1;
+				}else{
+					num = 0;
+				}
+			}
+		}
+		nextprev(num);
+		return false;
+	});
+
+	// * prev click
+	//-----------------------------------------
+	$prev.on('click',function() {		
+		for (var i = 0; i < imgArraySrc.length; i++) {
+			if (imgArraySrc[i] == imagesrc) {
+				if (i != 0) {		
+					num = i - 1;
+				}else{
+					num = imgArraySrc.length - 1;
+				}
+			}
+		}
+		nextprev(num);
+		return false;
+	});
+
+	// * next prev
+	//-----------------------------------------
+	function nextprev(num) {
+		imagesrc = imgArraySrc[num];
+		image = $('<img>').attr('src',imagesrc);
+		altTxt = imgArrayAlt[num];
+		$('#mw-cont').prepend(image);
+		$('#mw-caption').html(altTxt);
+		$('img:nth-child(2)','#mw-cont').fadeOut(sp,function() {$(this).remove()});			
+	}
+
+}
+</script>
+<style>
+body {
+    height: 3000px;
+}
+#container {
+    margin:50px;
+}
+#textbox {
+	position: fixed;
+	top:0;
+	right: 0;
+	background:#EEE;
+	width:300px;
+}
+.gallery li {
+    margin-bottom: 20px;
+}
+/*---------------*/
+#backWrap {
+	display: none;
+  position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height: 100%;
+}
+#modalWindow {
+	display: none;
+	position: absolute;
+}
+#modalCont {
+	position: relative;
+	background: #EEE;
+  padding: 10px 10px 62px;
+}
+#mw-cont img {
+    position:absolute;
+}
+#mw-caption {
+    position: absolute;
+    bottom:15px;
+    left:10px;
+}
+#mw-close a {
+	display: block;
+	position:absolute;
+	bottom:10px;
+	right:10px;
+	width: 32px;
+	height: 32px;
+	background: url('images/close.png') no-repeat;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	cursor:pointer;
+}
+#mw-control {
+    display: none;
+    position: absolute;
+}
+#mw-control a {
+	position:absolute;
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #333;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  color:#FFF;
+}
+#mw-control a:hover {
+    background-color:#666;
+}
+#mw-prev {
+	left: -70px;
+}
+#mw-next {
+	right:-70px;
+}
+</style>
+</head>
+<body>
+<div id="textbox"></div>
+<div id="container">
+
+
+<ul class="gallery">
+	<li><a href="images/candle.jpg" rel="mImage"><img src="images/candle_s.jpg" alt="キャンドルライト"></a></li>
+	<li><a href="images/poppy.jpg" rel="mImage"><img src="images/poppy_s.jpg" alt="ポピー"></a></li>
+	<li><a href="images/rose.jpg"><img src="images/rose_s.jpg" alt="ローズ"></a></li>
+	<li><a href="images/fish.jpg" rel="mImage"><img src="images/fish_s.jpg" alt="魚"></a></li>
+</ul>
+
+
+</div>
+
+</body>
+</html>
