@@ -16,16 +16,16 @@ jQuery モーダルウィンドウの画像用のプラグインです。
 
 ##レイアウト概要
 
-		\#modalWindow  
-		  \|  
-		  \+ #modalCont  
-		      \|  
-		      \+ #mw-cont  
-		          \|  
-		          \+ img  
-		          \+ #mw-caption  
-		      \+ #mw-close  
-		      \+ #mw-control  
-		          \|  
-		          \+ a#prev  
-		          \+ a#next  
+	#modalWindow
+	  |
+	  + #modalCont
+	      |
+	      + #mw-cont
+	          |
+	          + img
+	          + #mw-caption
+	      + #mw-close
+	      + #mw-control
+	          |
+	          + a#prev
+	          + a#next
