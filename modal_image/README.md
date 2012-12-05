@@ -15,9 +15,9 @@ jQuery モーダルウィンドウの画像用のプラグインです。
 * backAlpha:0.6			//後ろのレイヤーの透明度
 
 ##レイアウト概要
-#modalWindow
-  |
-  + #modalCont
+\#modalWindow
+  \|
+  \+ #modalCont
       |
       + #mw-cont
           |
@@ -30,4 +30,3 @@ jQuery モーダルウィンドウの画像用のプラグインです。
           |
           + a#prev
           + a#next
-      
