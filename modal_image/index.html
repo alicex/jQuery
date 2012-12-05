@@ -9,6 +9,8 @@
 <script type="text/javascript">
 $(function() {
 	$('.gallery a').imageModal({
+		innerWidth:600,
+		innerHeight:400,
 		backColor:'#08f'
 	});
 });
@@ -23,7 +25,7 @@ $.fn.imageModal = function(opts) {
 		outerHeight:0,		//modalContにCSSで高さ指定がある時
 		speed:300,				//animation speed
 		backColor:'#000',	//back color
-		backAlpha:0.6			// back alpha
+		backAlpha:0.6			//back alpha
 	},opts);
 
 	// * initialize
