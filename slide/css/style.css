@@ -1,0 +1,82 @@
+.slide {
+  width: 100%;
+  height: 100%;
+}
+nav {
+	position: fixed;
+	top: 50px;
+	right:-250px;
+	padding: 20px;
+	width: 200px;
+	background:#333;
+	opacity:0.7;
+	border-radius: 10px 0 0 10px;
+	font-size:16px;
+	color:#FFF;
+}
+nav a {
+	display: block;
+	padding: 10px;
+	color:#FFF;
+	line-height:1.6;
+	text-decoration: none;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+nav li.on a,
+nav a:hover {
+	background: #666;
+  border-radius: 8px;
+}
+/*---Color---*/
+.testmode {
+	color:#CCC;
+}
+.default {
+	background-image:-moz-linear-gradient(#FFF, #ffe3f4);
+	background-image:-webkit-gradient(linear, left top, left bottom, from(#FFF), to(#ffe3f4));
+	background-image:-webkit-linear-gradient(#FFF, #ffe3f4);
+	background-image:linear-gradient(#FFF, #ffe3f4);
+	background-color:#ffe3f4;
+}
+.dark {
+	background-image:-moz-linear-gradient(#232323, #000);
+	background-image:-webkit-gradient(linear, left top, left bottom, from(#232323), to(#000));
+	background-image:-webkit-linear-gradient(#232323, #000);
+	background-image:linear-gradient(#232323, #000);
+	background-color:#000;
+	color:#FFF;
+}
+.blue {
+	background-image:-moz-linear-gradient(#001555, #000e3a);
+	background-image:-webkit-gradient(linear, left top, left bottom, from(#001555), to(#000e3a));
+	background-image:-webkit-linear-gradient(#001555, #000e3a);
+	background-image:linear-gradient(#001555, #000e3a);
+	background-color:#000e3a;
+	color:#FFF;
+}
+.purple {
+	background-image:-moz-linear-gradient(#2b0160, #1f0441);
+	background-image:-webkit-gradient(linear, left top, left bottom, from(#2b0160), to(#1f0441));
+	background-image:-webkit-linear-gradient(#2b0160, #1f0441);
+	background-image:linear-gradient(#2b0160, #1f0441);
+	background-color:#1f0441;
+	color:#FFF;
+}
+.pink {
+	background-image:-moz-linear-gradient(#cf0053, #b10047);
+	background-image:-webkit-gradient(linear, left top, left bottom, from(#cf0053), to(#b10047));
+	background-image:-webkit-linear-gradient(#cf0053, #b10047);
+	background-image:linear-gradient(#cf0053, #b10047);
+	background-color:#b10047;
+	color:#FFF;
+}
+.green {
+	background-image:-moz-linear-gradient(#00a299, #008d85);
+	background-image:-webkit-gradient(linear, left top, left bottom, from(#00a299), to(#008d85));
+	background-image:-webkit-linear-gradient(#00a299, #008d85);
+	background-image:linear-gradient(#00a299, #008d85);
+	background-color:#00a299;
+	color:#FFF;
+}
