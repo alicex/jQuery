@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Password Check</title>
+<link rel="stylesheet" href="/common/css/html5reset.css">
+<script type="text/javascript" src="/common/js/jquery.js"></script>
+<script type="text/javascript">
+(function($) {
+  $(document).on('ready', function() {
+    //-----------------------------
+    //- password
+    //-----------------------------
+    $('#pwCheck').on('keydown keyup keypress change', function() {
+      $('.pwTxt span').hide();
+      $('.pwTxt .lv1').show();
+      var pw = $('#pwCheck').val();
+      if (pw.length >= 5) {
+        $('.pwTxt span').hide();
+        $('.pwTxt .lv2').show();
+        if (pw.match(/([0-9].*[a-zA-Z]|[a-zA-Z].*[0-9])/)) {
+          $('.pwTxt span').hide();
+          $('.pwTxt .lv3').show();
+        }
+      }else if (pw.length == 0) {
+        $('.pwTxt span').hide();
+      }
+    });
+  });
+})(jQuery);
+</script>
+<link rel="stylesheet" href="style.css">
+<style>
+#container {
+  margin: 200px;
+}
+input#pwCheck {
+  padding: 10px;
+  border: #CCC solid 1px;
+}
+
+.pwTxt span {display: none;}
+.pwTxt .lv1 {color: red;}
+.pwTxt .lv2 {color: green;}
+.pwTxt .lv3 {color: blue;}
+</style>
+</head>
+<body>
+<div id="container">
+
+パスワードチェック<br>
+<input name="" type="text" size="60" id="pwCheck">
+<div class="pwTxt">
+<span class="lv1">短い</span>
+<span class="lv2">5文字以上だしOK</span>
+<span class="lv3">5文字以上で英数字混ざっててとても良い</span>
+</div>
+
+
+</div>
+</body>
+</html>
