@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Font Switch</title>
+<link rel="stylesheet" href="../common/css/html5reset.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="alternate stylesheet" title="normal" href="css/font_normal.css">
+<link rel="alternate stylesheet" title="big" href="css/font_big.css">
+<script type="text/javascript" src="../common/js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript">
+(function($) {
+  $(document).on('ready', function() {
+    //-----------------------------
+    //- fontSwitch
+    //-----------------------------
+    //initialize
+    var $normalSw = $('.fontSwitch .normal');
+    var $bigSw    = $('.fontSwitch .big');
+    var $ck       = $.cookie('fontSize');
+    var cssObj    = [''];
+    var normalCss = '';
+    var bigCss    = '';
+    //cssObj
+    cssObj = document.getElementsByTagName('link');
+    for (i=0; i<cssObj.length; i++) {
+      if (cssObj[i].getAttribute('rel') == 'alternate stylesheet') {
+        if (cssObj[i].getAttribute('title') == 'normal') {
+          normalCssObj = cssObj[i];
+        } else if (cssObj[i].getAttribute('title') == 'big') {
+          bigCssObj = cssObj[i];
+        }
+      }
+    }
+    //cookie switch
+    if ($ck == 'big') {
+      fontBig();
+    } else {
+      fontNormal();
+    }
+    //click
+    $bigSw.on('click', function () {
+      if ($(this).hasClass('current')) {
+      }else{
+        fontBig();
+      }
+      return false;
+    });
+    $normalSw.on('click', function () {
+      if ($(this).hasClass('current')) {
+      }else{
+        fontNormal();
+      }
+      return false;
+    });
+    //font-big
+    function fontBig () {
+      $.cookie('fontSize', 'big', {expires:30, path:'/'});
+      $normalSw.removeClass('current');
+      $bigSw.addClass('current');
+      normalCssObj.disabled = true;
+      bigCssObj.disabled = false;
+    }
+    //font-normal
+    function fontNormal () {
+      $.cookie('fontSize', 'normal', {expires:30, path:'/'});
+      $bigSw.removeClass('current');
+      $normalSw.addClass('current');
+      normalCssObj.disabled = false;
+      bigCssObj.disabled = true;
+    }
+  });
+})(jQuery);
+</script>
+<style>
+#container {
+  margin: 100px;
+}
+.fontSwitch {
+  margin-bottom: 30px;
+  padding: 3px;
+  background-color: #CCC;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.fontSwitch dt,
+.fontSwitch dd {
+  display: inline-block;
+}
+.fontSwitch dd a {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 5px;
+  background-color: #FFF;
+}
+.fontSwitch dd a:hover {
+  background-color: #EEE;
+}
+.fontSwitch dd.current a {
+  background-color: #333;
+  color: #FFF;
+}
+</style>
+</head>
+<body>
+<div id="container">
+
+<dl class="fontSwitch">
+<dt>文字サイズ</dt>
+<dd class="normal"><a href="#">標準</a></dd>
+<dd class="big"><a href="#">大</a></dd>
+</dl>
+
+<div class="box">
+あいうえおかきくけこさしすせそ
+</div>
+
+</div>
+</body>
+</html>
